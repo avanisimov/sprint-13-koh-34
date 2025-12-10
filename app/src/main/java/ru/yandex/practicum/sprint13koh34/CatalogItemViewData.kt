@@ -33,8 +33,8 @@ class CatalogItemViewHolder(
             .load(viewData.item.imageUrl)
             .into(binding.image)
         binding.title.text = viewData.item.name
-        binding.price.text = "${viewData.item.price / 100}/${viewData.item.unit}"
-
+        val priceString = "%.2f".format(viewData.item.price.toFloat()/100)
+        binding.price.text = "$priceString/${viewData.item.unit}"
         if (viewData.count != null) {
             binding.addToCart.visibility = View.GONE
             binding.countContainer.visibility = View.VISIBLE
@@ -42,4 +42,8 @@ class CatalogItemViewHolder(
         }
     }
 
+}
+
+fun Long.remaining(): String {
+    return (this % 100).toInt().toString().padStart(2, '0')
 }
