@@ -43,7 +43,3 @@ class CatalogItemViewHolder(
     }
 
 }
-
-fun Long.remaining(): String {
-    return (this % 100).toInt().toString().padStart(2, '0')
-}
