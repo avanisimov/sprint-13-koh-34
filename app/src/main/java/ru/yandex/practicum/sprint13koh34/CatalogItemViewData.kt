@@ -13,7 +13,16 @@ data class CatalogItemViewData(
 ) {
     val id = item.id
 }
+enum class Currency(
+    val code: String,
+    val symbol: String
+) {
+    RUB("RUB", "₽"),
+    USD("USD", "$"),
+    EUR("EUR", "€");
 
+    override fun toString(): String = symbol
+}
 class CatalogItemViewHolder(
     parent: ViewGroup,
     val binding: VCatalogItemBinding = VCatalogItemBinding.inflate(
@@ -34,7 +43,7 @@ class CatalogItemViewHolder(
             .into(binding.image)
         binding.title.text = viewData.item.name
         val priceString = "%.2f".format(viewData.item.price.toFloat()/100)
-        binding.price.text = "$priceString/${viewData.item.unit}"
+        binding.price.text = "$priceString ${Currency.RUB.symbol}/${viewData.item.unit}"
         if (viewData.count != null) {
             binding.addToCart.visibility = View.GONE
             binding.countContainer.visibility = View.VISIBLE
